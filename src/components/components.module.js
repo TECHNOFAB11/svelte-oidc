@@ -5,6 +5,7 @@ export {
     accessToken,
     isAuthenticated,
     isLoading,
+    hasData,
     login,
     logout,
     refreshToken,

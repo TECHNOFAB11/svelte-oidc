@@ -7,6 +7,7 @@
   /**
    * Stores
    */
+  export const hasData = writable(false);
   export const isLoading = writable(true);
   export const isAuthenticated = writable(false);
   export const accessToken = writable('');
@@ -111,10 +112,11 @@
     accessToken.set(user.access_token);
     idToken.set(user.id_token);
     userInfo.set(user.profile);
-    isLoading.set(false);
+    hasData.set(true);
   });
 
   userManager.events.addUserUnloaded(function() {
+    hasData.set(false);
     isAuthenticated.set(false);
     idToken.set('');
     accessToken.set('');
@@ -171,6 +173,7 @@
     else if (params.has('state')) {
       const response = await oidc.signinCallback();
     }
+    isLoading.set(false);
   }
   async function handleOnDestroy() {}
 
